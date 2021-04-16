@@ -2,6 +2,7 @@ package edu.iis.mto.multithread;
 
 public class Radar {
 
+    private static final int ROCKET_COUNT = 10;
     private PatriotBattery battery;
 
     public Radar(PatriotBattery battery) {
@@ -9,17 +10,13 @@ public class Radar {
     }
 
     public void notice(Scud enemyMissle) {
-        launchPatriot(enemyMissle);
+        launchPatriot(enemyMissle, ROCKET_COUNT);
     }
 
-    private void launchPatriot(Scud enemyMissle) {
-        Runnable launchPatriotTask = new Runnable() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    battery.launchPatriot(enemyMissle);
-                }
+    private void launchPatriot(Scud enemyMissle, int rocketCount) {
+        Runnable launchPatriotTask = () -> {
+            for (int i = 0; i < rocketCount; i++) {
+                battery.launchPatriot(enemyMissle);
             }
         };
 
